@@ -1,3 +1,4 @@
+using ComicBookGalleryModel.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,12 +11,34 @@ namespace ComicBookGalleryModel
     {
         static void Main(string[] args)
         {
-            // The code provided will print ‘Hello World’ to the console.
-            // Press Ctrl+F5 (or go to Debug > Start Without Debugging) to run your app.
-            Console.WriteLine("Hello World!");
-            Console.ReadKey();
+            // using directive takes advantage of the IDisposable interface to free
+            // memory when DbSet is no longer being used.
+            using (var context = new Context())
+            {
+                // the DbSet Add method takes an instance of the ComicBook class
+                // to add an instance of this entity to the database.
+                context.ComicBooks.Add(new ComicBook()
+                {
+                    SeriesTitle = "The Amazing Spiderman",
+                    IssueNumber = 1,
+                    PublishedOn = DateTime.Today
+                });
+                // SaveChanges needed to persist the data
+                context.SaveChanges();
 
-            // Go to http://aka.ms/dotnet-get-started-console to continue learning how to build a console app! 
+                // the DbSet ToList method retrieves a list of entity instances
+                var comicBooks = context.ComicBooks.ToList();
+
+                // use foreach to loop through all instances of comic books
+                // and write the series title property to the console
+                foreach (var comicBook in comicBooks)
+                {
+                    Console.WriteLine(comicBook.SeriesTitle);
+                }
+                Console.ReadLine();
+            }
+
+
         }
     }
 }
