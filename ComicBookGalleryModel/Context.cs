@@ -22,5 +22,6 @@ namespace ComicBookGalleryModel
         }
 
         public DbSet<ComicBook> ComicBooks { get; set; }
+        public DbSet<Series> Series { get; set; }
     }
 }
