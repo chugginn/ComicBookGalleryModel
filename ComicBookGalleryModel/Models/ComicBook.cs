@@ -15,5 +15,15 @@ namespace ComicBookGalleryModel.Models
         public string Description { get; set; }
         public DateTime PublishedOn { get; set; }
         public decimal? AverageRating { get; set; }
+
+        public string DisplayText
+        {
+            get
+            {
+                // The ? operator will allow to check if the property is null and
+                // return null. Without it, we'd get a NullReferenceException
+                return $"{Series?.Title} #{IssueNumber}";
+            }
+        }
     }
 }

@@ -16,9 +16,9 @@ namespace ComicBookGalleryModel
             // To fix this, we can try Code First Migrations (to be learned later), or we
             // can drop the database and create a new one every time the model changes, using
             // the code below.
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
+            //Database.SetInitializer(new DropCreateDatabaseIfModelChanges<Context>());
             //Database.SetInitializer(new CreateDatabaseIfNotExists<Context>());
-            //Database.SetInitializer(new DropCreateDatabaseAlways<Context>());
+            Database.SetInitializer(new DropCreateDatabaseAlways<Context>());
         }
 
         public DbSet<ComicBook> ComicBooks { get; set; }
