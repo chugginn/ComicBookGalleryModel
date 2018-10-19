@@ -8,6 +8,11 @@ namespace ComicBookGalleryModel.Models
 {
     public class ComicBook
     {
+        public ComicBook()
+        {
+            Artists = new List<Artist>();
+        }
+
         public int Id { get; set; }
         public int IssueNumber { get; set; }
         // explicitly naming this property 'Series' with 'Id' is a convention that EF uses to
@@ -22,6 +27,8 @@ namespace ComicBookGalleryModel.Models
 
         // many-to-one relationship created by the following 'navigation' property:
         public Series Series { get; set; }
+        // many-to-many because Artist entity also has an ICollection navigation property:
+        public ICollection<Artist> Artists { get; set; }
 
         public string DisplayText
         {
