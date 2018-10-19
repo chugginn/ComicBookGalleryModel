@@ -37,14 +37,24 @@ namespace ComicBookGalleryModel
                 {
                     Name = "Jack Kirby"
                 };
+
+                var role1 = new Role()
+                {
+                    Name = "Script"
+                };
+                var role2 = new Role()
+                {
+                    Name = "Pencils"
+                };
+
                 var comicBook1 = new ComicBook()
                 {
                     Series = series1,
                     IssueNumber = 1,
                     PublishedOn = DateTime.Today
                 };
-                comicBook1.Artists.Add(artist1);
-                comicBook1.Artists.Add(artist2);
+                comicBook1.AddArtist(artist1, role1);
+                comicBook1.AddArtist(artist2, role2);
 
                 var comicBook2 = new ComicBook()
                 {
@@ -52,8 +62,8 @@ namespace ComicBookGalleryModel
                     IssueNumber = 2,
                     PublishedOn = DateTime.Today
                 };
-                comicBook2.Artists.Add(artist1);
-                comicBook2.Artists.Add(artist2);
+                comicBook2.AddArtist(artist1, role1);
+                comicBook2.AddArtist(artist2, role2);
 
                 var comicBook3 = new ComicBook()
                 {
@@ -61,8 +71,8 @@ namespace ComicBookGalleryModel
                     IssueNumber = 1,
                     PublishedOn = DateTime.Today
                 };
-                comicBook3.Artists.Add(artist1);
-                comicBook3.Artists.Add(artist3);
+                comicBook3.AddArtist(artist1, role1);
+                comicBook3.AddArtist(artist3, role2);
 
                 // the DbSet Add method takes an instance of the ComicBook class
                 // to add an instance of this entity to the database.
@@ -79,7 +89,8 @@ namespace ComicBookGalleryModel
                 // Comicbook.Series would be NULL. We can use a Linq Expression
                 // to express the Series Entity
                 var comicBooks = context.ComicBooks
-                    .Include(cb => cb.Artists)
+                    .Include(cb => cb.Artists.Select(a => a.Artist))
+                    .Include(cb => cb.Artists.Select(a => a.Role))
                     .Include(cb => cb.Series)
                     .ToList();
 
@@ -90,12 +101,13 @@ namespace ComicBookGalleryModel
                     // include a list of each comic book's artists. First, create a variable
                     // that uses LINQ to transform a collection of Artist entity objects to a
                     // list of Artist names:
-                    var artistNames = comicBook.Artists.Select(a => a.Name).ToList();
+                    var artistRoleNames = comicBook.Artists
+                        .Select(a => $"{a.Artist.Name} - {a.Role.Name}").ToList();
                     // then use Join() to convert the collection of strings to a comma-delimited list
-                    var artistsDisplayText = string.Join(", ", artistNames);
+                    var artistRoleDisplayNames = string.Join(", ", artistRoleNames);
 
                     Console.WriteLine(comicBook.DisplayText);
-                    Console.WriteLine(artistsDisplayText);
+                    Console.WriteLine(artistRoleDisplayNames);
                 }
                 Console.ReadLine();
             }
