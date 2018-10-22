@@ -104,10 +104,10 @@ namespace ComicBookGalleryModel
                     var artistRoleNames = comicBook.Artists
                         .Select(a => $"{a.Artist.Name} - {a.Role.Name}").ToList();
                     // then use Join() to convert the collection of strings to a comma-delimited list
-                    var artistRoleDisplayNames = string.Join(", ", artistRoleNames);
+                    var artistRoleDisplayText = string.Join(", ", artistRoleNames);
 
                     Console.WriteLine(comicBook.DisplayText);
-                    Console.WriteLine(artistRoleDisplayNames);
+                    Console.WriteLine(artistRoleDisplayText);
                 }
                 Console.ReadLine();
             }

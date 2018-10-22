@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,23 @@ namespace ComicBookGalleryModel
         }
 
         public DbSet<ComicBook> ComicBooks { get; set; }
-        public DbSet<Series> Series { get; set; }
+
+        // EF lets us override certain methods. Type 'override' and space to let
+        // intellisense show you the methods.
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            // this line will remove the convention of pluralizing table names automatically
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            // these lines would replace the decimal property convention across all entities
+            //modelBuilder.Conventions.Remove<DecimalPropertyConvention>();
+            //modelBuilder.Conventions.Add(new DecimalPropertyConvention(5, 2));
+
+            // this line replaces the decimal property precision to the AverageRating
+            // property on the ComicBook entity only
+            modelBuilder.Entity<ComicBook>()
+                .Property(cb => cb.AverageRating)
+                .HasPrecision(5, 2);
+        }
     }
 }
