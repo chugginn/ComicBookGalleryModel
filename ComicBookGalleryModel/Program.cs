@@ -20,13 +20,17 @@ namespace ComicBookGalleryModel
                 // this line will log all our SQL queries to the output window
                 context.Database.Log = (message) => Debug.WriteLine(message);
 
-                // var comicBooks = context.ComicBooks.ToList();
+                var comicBooks = context.ComicBooks
+                    .Include(cb => cb.Series)
+                    .Where(cb => cb.Series.Title.Contains("Man"))
+                    .ToList();
 
-                // defferred execution creates a query before executing it
-                var comicBooksQuery = from cb in context.ComicBooks select cb;
-                // then the execution...
-                var comicBooks = comicBooksQuery.ToList();
+                foreach (var comicBook in comicBooks)
+                {
+                    Console.WriteLine(comicBook.DisplayText);
+                }
 
+                Console.WriteLine();
                 Console.WriteLine($"# of comic books: {comicBooks.Count}");
 
                 // the DbSet ToList method retrieves a list of entity instances.
