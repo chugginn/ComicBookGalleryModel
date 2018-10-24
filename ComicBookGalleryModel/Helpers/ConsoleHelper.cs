@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ComicBookLibraryManager.Helpers
+namespace ComicBookGalleryModel.Helpers
 {
     /// <summary>
     /// Provides a collection of helper methods for reading input from 
