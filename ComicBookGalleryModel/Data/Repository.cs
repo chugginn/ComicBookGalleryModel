@@ -133,7 +133,35 @@ namespace ComicBookGalleryModel.Data
         /// <param name="comicBook">The ComicBook entity instance to add.</param>
         public static void AddComicBook(ComicBook comicBook)
         {
-            // TODO
+            // the GetContext method above does the same as
+            // using (var context = new Context()) but includes debugging.
+            using (Context context = GetContext())
+            {
+                context.ComicBooks.Add(comicBook);
+
+                // this is defensive coding which exists in the rare case that
+                // a comic book is added to the database where the series ID is explicitly
+                // provided but already exists. This prevents a new series from being created ('Unchanged')
+                if (comicBook.Series != null && comicBook.Series.Id > 0)
+                {
+                    context.Entry(comicBook.Series).State = EntityState.Unchanged;
+                }
+                // same defensive coding below. We are checking to make sure that the Artist and
+                // Role IDs are unchanged in the database if their ID property is explicitly provided.
+                foreach (ComicBookArtist artist in comicBook.Artists)
+                {
+                    if (artist.Artist != null && artist.Artist.Id > 0)
+                    {
+                        context.Entry(artist.Artist).State = EntityState.Unchanged;
+                    }
+                    if (artist.Role != null && artist.Role.Id > 0)
+                    {
+                        context.Entry(artist.Role).State = EntityState.Unchanged;
+                    }
+                }
+
+                context.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -142,7 +170,21 @@ namespace ComicBookGalleryModel.Data
         /// <param name="comicBook">The ComicBook entity instance to update.</param>
         public static void UpdateComicBook(ComicBook comicBook)
         {
-            // TODO
+            using (Context context = GetContext())
+            {
+                // Attach() will attach the passed in values to the matching pk record in the database
+                context.ComicBooks.Attach(comicBook);
+
+                // EF has nothing to compare the new values to since the record is not being tracked
+                // so we have to set its state to modified to force EF to update the record.
+                var comicBookEntry = context.Entry(comicBook);
+                comicBookEntry.State = EntityState.Modified;
+
+                // this optional line lets us manually choose a property we don't want to let the user change
+                // comicBookEntry.Property("IssueNumber").IsModified = false;
+
+                context.SaveChanges();
+            }
         }
 
         /// <summary>
