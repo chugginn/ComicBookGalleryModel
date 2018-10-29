@@ -193,7 +193,19 @@ namespace ComicBookGalleryModel.Data
         /// <param name="comicBookId">The comic book ID to delete.</param>
         public static void DeleteComicBook(int comicBookId)
         {
-            // TODO
+            using (Context context = GetContext())
+            {
+                // we create a 'stub' record with the same Id as the record we'd like to delete
+                var comicBook = new ComicBook() { Id = comicBookId };
+
+                // we set the state of this entry to deleted
+                // NOTE: This will also delete associated relationships in the ComicBookArtist
+                // table because WillCascadeOnDelete is enabled by default. See https://teamtreehouse.com/library/deleting-entities
+                // for info on how to override this.
+                context.Entry(comicBook).State = EntityState.Deleted;
+
+                context.SaveChanges();
+            }
         }
     }
 }
