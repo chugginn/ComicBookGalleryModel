@@ -53,6 +53,10 @@
     <Compile Include="Data\DatabaseInitializer.cs" />
     <Compile Include="Data\Repository.cs" />
     <Compile Include="Helpers\ConsoleHelper.cs" />
+    <Compile Include="Migrations\201811011543182_Initial.cs" />
+    <Compile Include="Migrations\201811011543182_Initial.Designer.cs">
+      <DependentUpon>201811011543182_Initial.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Artist.cs" />
     <Compile Include="Models\ComicBook.cs" />
@@ -67,6 +71,11 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811011543182_Initial.resx">
+      <DependentUpon>201811011543182_Initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
