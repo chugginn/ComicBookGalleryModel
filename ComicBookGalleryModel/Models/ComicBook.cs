@@ -11,6 +11,7 @@ namespace ComicBookGalleryModel.Models
         public ComicBook()
         {
             Artists = new List<ComicBookArtist>();
+            AverageRatings = new List<ComicBookAverageRating>();
         }
 
         public int Id { get; set; }
@@ -23,12 +24,12 @@ namespace ComicBookGalleryModel.Models
         public int SeriesId { get; set; }
         public string Description { get; set; }
         public DateTime PublishedOn { get; set; }
-        public decimal? AverageRating { get; set; }
 
         // many-to-one relationship created by the following 'navigation' property:
         public Series Series { get; set; }
         // many-to-many because Artist entity also has an ICollection navigation property:
         public ICollection<ComicBookArtist> Artists { get; set; }
+        public ICollection<ComicBookAverageRating> AverageRatings { get; set; }
 
         public string DisplayText
         {

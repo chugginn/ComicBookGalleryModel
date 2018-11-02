@@ -133,7 +133,7 @@ namespace ComicBookGalleryModel
             comicBook.IssueNumber = GetIssueNumber();
             comicBook.Description = GetDescription();
             comicBook.PublishedOn = GetPublishedOnDate();
-            comicBook.AverageRating = GetAverageRating();
+            //comicBook.AverageRating = GetAverageRating();
 
             var comicBookArist = new ComicBookArtist();
             comicBookArist.ArtistId = GetArtistId();
@@ -520,9 +520,9 @@ namespace ComicBookGalleryModel
 
             ConsoleHelper.OutputBlankLine();
             ConsoleHelper.OutputLine("Published On: {0}", comicBook.PublishedOn.ToShortDateString());
-            ConsoleHelper.OutputLine("Average Rating: {0}",
-                comicBook.AverageRating != null ?
-                comicBook.AverageRating.Value.ToString("n2") : "N/A");
+            //ConsoleHelper.OutputLine("Average Rating: {0}",
+            //    comicBook.AverageRating != null ?
+            //    comicBook.AverageRating.Value.ToString("n2") : "N/A");
 
             ConsoleHelper.OutputLine("Artists");
 
@@ -626,7 +626,7 @@ namespace ComicBookGalleryModel
                         comicBook.PublishedOn = GetPublishedOnDate();
                         break;
                     case "AverageRating":
-                        comicBook.AverageRating = GetAverageRating();
+                        //comicBook.AverageRating = GetAverageRating();
                         break;
                     default:
                         break;
@@ -655,7 +655,7 @@ namespace ComicBookGalleryModel
             ConsoleHelper.OutputLine("2) Issue Number: {0}", comicBook.IssueNumber);
             ConsoleHelper.OutputLine("3) Description: {0}", comicBook.Description);
             ConsoleHelper.OutputLine("4) Published On: {0}", comicBook.PublishedOn.ToShortDateString());
-            ConsoleHelper.OutputLine("5) Average Rating: {0}", comicBook.AverageRating);
+            //ConsoleHelper.OutputLine("5) Average Rating: {0}", comicBook.AverageRating);
         }
     }
 }
