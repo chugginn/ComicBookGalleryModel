@@ -50,27 +50,33 @@ namespace ComicBookGalleryModel.Migrations
 
             var artistStanLee = new Artist()
             {
-                Name = "Stan Lee"
+                Name = "Stan Lee",
+                Bio = "Here's a bio."
             };
             var artistSteveDitko = new Artist()
             {
-                Name = "Steve Ditko"
+                Name = "Steve Ditko",
+                Bio = "Here's a bio."
             };
             var artistArchieGoodwin = new Artist()
             {
-                Name = "Archie Goodwin"
+                Name = "Archie Goodwin",
+                Bio = "Here's a bio."
             };
             var artistGeneColan = new Artist()
             {
-                Name = "Gene Colan"
+                Name = "Gene Colan",
+                Bio = "Here's a bio."
             };
             var artistJohnnyCraig = new Artist()
             {
-                Name = "Johnny Craig"
+                Name = "Johnny Craig",
+                Bio = "Here's a bio."
             };
             var artistJeffSmith = new Artist()
             {
-                Name = "Jeff Smith"
+                Name = "Jeff Smith",
+                Bio = "Here's a bio."
             };
 
             var comicBook1 = new ComicBook()
