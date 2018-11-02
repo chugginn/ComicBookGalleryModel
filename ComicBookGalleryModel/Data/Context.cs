@@ -1,4 +1,5 @@
-﻿using ComicBookGalleryModel.Models;
+﻿using ComicBookGalleryModel.Migrations;
+using ComicBookGalleryModel.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
@@ -21,9 +22,14 @@ namespace ComicBookGalleryModel.Data
             // which contains our app's database seed data.
             // Database.SetInitializer(new DatabaseInitializer());
 
+#if DEBUG
             // This disabled database initialization within EF. This is used
             // to enable migrations.
             Database.SetInitializer<Context>(null);
+#else
+            // When in production mode, our initializer will use MigrateDatabaseToLatestVersion
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<Context, Configuration>());
+#endif
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
