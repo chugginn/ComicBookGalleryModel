@@ -4,16 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C67D2717-238D-4450-8090-CD7DED98BB3F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>ComicBookGalleryModel</RootNamespace>
-    <AssemblyName>ComicBookGalleryModel</AssemblyName>
+    <ProjectGuid>{0FFB2EAA-631C-426B-B582-F23D4C6E7156}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ComicBookShared</RootNamespace>
+    <AssemblyName>ComicBookShared</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -49,21 +48,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\ConsoleHelper.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Data\Context.cs" />
+    <Compile Include="Data\DatabaseInitializer.cs" />
+    <Compile Include="Data\Repository.cs" />
+    <Compile Include="Migrations\201811011543182_Initial.cs" />
+    <Compile Include="Migrations\201811011543182_Initial.Designer.cs">
+      <DependentUpon>201811011543182_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021613193_AddBioPropertyToArtist.cs" />
+    <Compile Include="Migrations\201811021613193_AddBioPropertyToArtist.Designer.cs">
+      <DependentUpon>201811021613193_AddBioPropertyToArtist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811021718151_AddComicBookAverageRatingEntity.cs" />
+    <Compile Include="Migrations\201811021718151_AddComicBookAverageRatingEntity.Designer.cs">
+      <DependentUpon>201811021718151_AddComicBookAverageRatingEntity.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\ComicBook.cs" />
+    <Compile Include="Models\ComicBookArtist.cs" />
+    <Compile Include="Models\ComicBookAverageRating.cs" />
+    <Compile Include="Models\Role.cs" />
+    <Compile Include="Models\Series.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ComicBookShared\ComicBookShared.csproj">
-      <Project>{0ffb2eaa-631c-426b-b582-f23d4c6e7156}</Project>
-      <Name>ComicBookShared</Name>
-    </ProjectReference>
+    <EmbeddedResource Include="Migrations\201811011543182_Initial.resx">
+      <DependentUpon>201811011543182_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021613193_AddBioPropertyToArtist.resx">
+      <DependentUpon>201811021613193_AddBioPropertyToArtist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811021718151_AddComicBookAverageRatingEntity.resx">
+      <DependentUpon>201811021718151_AddComicBookAverageRatingEntity.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

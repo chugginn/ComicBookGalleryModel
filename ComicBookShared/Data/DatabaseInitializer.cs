@@ -1,8 +1,8 @@
-﻿using ComicBookGalleryModel.Models;
+﻿using ComicBookShared.Models;
 using System;
 using System.Data.Entity;
 
-namespace ComicBookGalleryModel.Data
+namespace ComicBookShared.Data
 {
     /// <summary>
     /// Custom database initializer class used to populate

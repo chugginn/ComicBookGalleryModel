@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace ComicBookGalleryModel.Models
+namespace ComicBookShared.Models
 {
     public class Artist
     {

@@ -1,4 +1,4 @@
-namespace ComicBookGalleryModel.Migrations
+namespace ComicBookShared.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

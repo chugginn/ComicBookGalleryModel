@@ -1,19 +1,19 @@
-namespace ComicBookGalleryModel.Migrations
+namespace ComicBookShared.Migrations
 {
-    using ComicBookGalleryModel.Models;
+    using ComicBookShared.Models;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ComicBookGalleryModel.Data.Context>
+    internal sealed class Configuration : DbMigrationsConfiguration<ComicBookShared.Data.Context>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ComicBookGalleryModel.Data.Context context)
+        protected override void Seed(ComicBookShared.Data.Context context)
         {
             // This is our database's seed data...
             // 3 series, 6 artists, 2 roles, and 9 comic books.

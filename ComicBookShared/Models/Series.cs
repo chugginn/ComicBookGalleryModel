@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComicBookGalleryModel.Models
+namespace ComicBookShared.Models
 {
     public class Series
     {

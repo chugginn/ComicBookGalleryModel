@@ -1,9 +1,8 @@
-﻿using ComicBookGalleryModel.Migrations;
-using ComicBookGalleryModel.Models;
+﻿using ComicBookShared.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
-namespace ComicBookGalleryModel.Data
+namespace ComicBookShared.Data
 {
     /// <summary>
     /// Entity Framework context class.
