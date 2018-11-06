@@ -1,4 +1,5 @@
-﻿using ComicBookShared.Models;
+﻿using ComicBookShared.Migrations;
+using ComicBookShared.Models;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 
