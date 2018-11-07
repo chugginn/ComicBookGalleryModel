@@ -15,22 +15,13 @@ namespace ComicBookLibraryManagerWebApp.Controllers
     /// <summary>
     /// Controller for the "Comic Books" section of the website.
     /// </summary>
-    public class ComicBooksController : Controller
+    public class ComicBooksController : BaseController
     {
-        // create private field to hold reference to a context object
-        private Context _context = null;
-
-        public ComicBooksController()
-        {
-            // instantiate an instance of the context class inside a constructor so that the
-            // context class is only initialized when this controller is initialized.
-            _context = new Context();
-        }
         public ActionResult Index()
         {
             // this query taken from our repository class GetComicBooks() which 
             // returns a list of comic books ordered by series title, then by issue number.
-            var comicBooks = _context.ComicBooks
+            var comicBooks = Context.ComicBooks
                 .Include(cb => cb.Series)
                 .OrderBy(cb => cb.Series.Title)
                 .ThenBy(cb => cb.IssueNumber)
@@ -46,7 +37,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var comicBook = _context.ComicBooks
+            var comicBook = Context.ComicBooks
                 .Include(cb => cb.Series)
                 .Include(cb => cb.Artists.Select(a => a.Artist))
                 .Include(cb => cb.Artists.Select(a => a.Role))
@@ -69,7 +60,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             var viewModel = new ComicBooksAddViewModel();
 
             // TODO Pass the Context class to the view model "Init" method.
-            viewModel.Init(_context);
+            viewModel.Init(Context);
 
             return View(viewModel);
         }
@@ -84,8 +75,8 @@ namespace ComicBookLibraryManagerWebApp.Controllers
                 var comicBook = viewModel.ComicBook;
                 comicBook.AddArtist(viewModel.ArtistId, viewModel.RoleId);
 
-                _context.ComicBooks.Add(comicBook);
-                _context.SaveChanges();
+                Context.ComicBooks.Add(comicBook);
+                Context.SaveChanges();
 
                 TempData["Message"] = "Your comic book was successfully added!";
 
@@ -93,7 +84,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             }
 
             // TODO Pass the Context class to the view model "Init" method.
-            viewModel.Init(_context);
+            viewModel.Init(Context);
 
             return View(viewModel);
         }
@@ -104,7 +95,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            var comicBook = _context.ComicBooks
+            var comicBook = Context.ComicBooks
                 .Where(cb => cb.Id == id)
                 .SingleOrDefault();
 
@@ -117,7 +108,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             {
                 ComicBook = comicBook
             };
-            viewModel.Init(_context);
+            viewModel.Init(Context);
 
             return View(viewModel);
         }
@@ -131,15 +122,15 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             {
                 var comicBook = viewModel.ComicBook;
 
-                _context.Entry(comicBook).State = EntityState.Modified;
-                _context.SaveChanges();
+                Context.Entry(comicBook).State = EntityState.Modified;
+                Context.SaveChanges();
 
                 TempData["Message"] = "Your comic book was successfully updated!";
 
                 return RedirectToAction("Detail", new { id = comicBook.Id });
             }
 
-            viewModel.Init(_context);
+            viewModel.Init(Context);
 
             return View(viewModel);
         }
@@ -153,7 +144,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
 
             // TODO Get the comic book.
             // Include the "Series" navigation property.
-            var comicBook = _context.ComicBooks
+            var comicBook = Context.ComicBooks
                 .Include(cb => cb.Series)
                 .Where(cb => cb.Id == id)
                 .SingleOrDefault();
@@ -170,8 +161,8 @@ namespace ComicBookLibraryManagerWebApp.Controllers
         public ActionResult Delete(int id)
         {
             var comicBook = new ComicBook() { Id = id };
-            _context.Entry(comicBook).State = EntityState.Deleted;
-            _context.SaveChanges();
+            Context.Entry(comicBook).State = EntityState.Deleted;
+            Context.SaveChanges();
 
             TempData["Message"] = "Your comic book was successfully deleted!";
 
@@ -192,7 +183,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
                 // Then make sure that the provided issue number is unique for the provided series.
                 // TODO Call method to check if the issue number is available for this comic book.
 
-                if (_context.ComicBooks
+                if (Context.ComicBooks
                             .Any(cb => cb.Id != comicBook.Id &&
                                        cb.SeriesId == comicBook.SeriesId &&
                                        cb.IssueNumber == comicBook.IssueNumber))
@@ -201,32 +192,6 @@ namespace ComicBookLibraryManagerWebApp.Controllers
                         "The provided Issue Number has already been entered for the selected Series.");
                 }
             }
-        }
-
-        // we will override the Controller Dispose method so that we can dispose of the context
-        // once it has been used.
-
-        //  private field to hold whether or not disposal has been called to safeguard against
-        // Dispose() being called more than once.
-        private bool _disposed = false;
-
-        // type 'override' to get a list of methods that can be overridden
-        protected override void Dispose(bool disposing)
-        {
-            // check if disposal has been called and if so, short circuit the method by returning
-            if (_disposed)
-                return;
-
-            // only dispose of the context if disposing parameter is true
-            // this will prevent us from releasing managed resources that have already been reclaimed
-            if (disposing)
-            {
-                _context.Dispose();
-            }
-
-            _disposed = true;
-
-            base.Dispose(disposing);
         }
     }
 }
