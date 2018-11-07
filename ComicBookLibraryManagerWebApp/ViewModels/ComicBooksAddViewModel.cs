@@ -19,12 +19,9 @@ namespace ComicBookLibraryManagerWebApp.ViewModels
         public int ArtistId { get; set; }
         [Display(Name = "Role")]
         public int RoleId { get; set; }
-        [Display(Name = "Average Rating")]
-        public int AverageRatingId { get; set; }
 
         public SelectList ArtistSelectListItems { get; set; }
         public SelectList RoleSelectListItems { get; set; }
-        public SelectList AverageRatingSelectListItems { get; set; }
 
         public ComicBooksAddViewModel()
         {
