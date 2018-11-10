@@ -1,4 +1,4 @@
-using ComicBookShared.Data;
+using ComicBookGalleryModel.Data;
 using ComicBookGalleryModel.Helpers;
 using ComicBookShared.Models;
 using System;
