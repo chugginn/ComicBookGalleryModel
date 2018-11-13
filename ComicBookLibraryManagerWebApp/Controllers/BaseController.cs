@@ -9,7 +9,6 @@ namespace ComicBookLibraryManagerWebApp.Controllers
 {
     public abstract class BaseController : Controller
     {
-        private Context _context = null;
 
         //  private field to hold whether or not disposal has been called to safeguard against
         // Dispose() being called more than once.
@@ -19,10 +18,14 @@ namespace ComicBookLibraryManagerWebApp.Controllers
         // private setter because only being set from within this class
         protected Repository Repository { get; private set; }
 
+        // change context field from private to protected property so that controllers can instantiate 
+        // their own repositories.
+        protected Context Context { get; private set; }
+
         public BaseController()
         {
-            _context = new Context();
-            Repository = new Repository(_context);
+            Context = new Context();
+            Repository = new Repository(Context);
         }
 
         // we will override the Controller Dispose method so that we can dispose of the context
@@ -39,7 +42,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             // this will prevent us from releasing managed resources that have already been reclaimed
             if (disposing)
             {
-                _context.Dispose();
+                Context.Dispose();
             }
 
             _disposed = true;
