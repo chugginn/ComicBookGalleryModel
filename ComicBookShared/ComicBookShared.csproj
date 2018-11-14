@@ -50,10 +50,8 @@
   <ItemGroup>
     <Compile Include="Data\ComicBookArtistRepository.cs" />
     <Compile Include="Data\ComicBooksRepository.cs" />
-    <Compile Include="Data\Commands\AddComicBookArtistCommand.cs" />
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\DatabaseInitializer.cs" />
-    <Compile Include="Data\Queries\GetComicBookQuery.cs" />
     <Compile Include="Data\Repository.cs" />
     <Compile Include="Migrations\201811011543182_Initial.cs" />
     <Compile Include="Migrations\201811011543182_Initial.Designer.cs">
@@ -91,6 +89,5 @@
       <DependentUpon>201811021718151_AddComicBookAverageRatingEntity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
