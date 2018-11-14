@@ -8,26 +8,28 @@ using System.Data.Entity;
 
 namespace ComicBookShared.Data
 {
-    public class ComicBooksRepository : BaseRepository<ComicBook>
+    public class ComicBooksRepository
     {
+        // this field used only within this class
+        private Context _context = null;
+
         public ComicBooksRepository(Context context)
-            // base class contructor requires a Context instance
-            : base(context)
         {
+            _context = context;
         }
 
-        public override IList<ComicBook> GetList()
+        public IList<ComicBook> GetList()
         {
-            return Context.ComicBooks
+            return _context.ComicBooks
                 .Include(cb => cb.Series)
                 .OrderBy(cb => cb.Series.Title)
                 .ThenBy(cb => cb.IssueNumber)
                 .ToList();
         }
 
-        public override ComicBook Get(int id, bool includeRelatedEntities = true)
+        public ComicBook Get(int? id, bool includeRelatedEntities = true)
         {
-            var comicBooks = Context.ComicBooks.AsQueryable();
+            var comicBooks = _context.ComicBooks.AsQueryable();
 
             if (includeRelatedEntities)
             {
@@ -42,9 +44,28 @@ namespace ComicBookShared.Data
                     .SingleOrDefault();
         }
 
+        public void Edit(ComicBook comicBook)
+        {
+            _context.Entry(comicBook).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var comicBook = new ComicBook() { Id = id };
+            _context.Entry(comicBook).State = EntityState.Deleted;
+            _context.SaveChanges();
+        }
+
+        public void Add(ComicBook comicBook)
+        {
+            _context.ComicBooks.Add(comicBook);
+            _context.SaveChanges();
+        }
+
         public bool ValidateComicBook(ComicBook comicBook)
         {
-            return Context.ComicBooks
+            return _context.ComicBooks
                     .Any(cb => cb.Id != comicBook.Id &&
                                cb.SeriesId == comicBook.SeriesId &&
                                cb.IssueNumber == comicBook.IssueNumber);
@@ -52,7 +73,7 @@ namespace ComicBookShared.Data
 
         public bool ValidateArtist(int roleId, int artistId, int comicBookId)
         {
-            return Context.ComicBookArtists
+            return _context.ComicBookArtists
                     .Any(a => a.RoleId == roleId &&
                               a.ArtistId == artistId &&
                               a.ComicBookId == comicBookId);
