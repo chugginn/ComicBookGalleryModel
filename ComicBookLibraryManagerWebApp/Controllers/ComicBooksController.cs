@@ -118,7 +118,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             {
                 var comicBook = viewModel.ComicBook;
 
-                _comicBooksRepository.Edit(comicBook);
+                _comicBooksRepository.Update(comicBook);
 
                 TempData["Message"] = "Your comic book was successfully updated!";
 
