@@ -53,6 +53,7 @@
     <Compile Include="Data\Context.cs" />
     <Compile Include="Data\DatabaseInitializer.cs" />
     <Compile Include="Data\Repository.cs" />
+    <Compile Include="Data\SeriesRepository.cs" />
     <Compile Include="Migrations\201811011543182_Initial.cs" />
     <Compile Include="Migrations\201811011543182_Initial.Designer.cs">
       <DependentUpon>201811011543182_Initial.cs</DependentUpon>

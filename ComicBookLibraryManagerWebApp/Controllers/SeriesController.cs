@@ -1,4 +1,5 @@
-﻿using ComicBookShared.Models;
+﻿using ComicBookShared.Data;
+using ComicBookShared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,15 @@ namespace ComicBookLibraryManagerWebApp.Controllers
     /// <summary>
     /// Controller for the "Series" section of the website.
     /// </summary>
-    public class SeriesController : Controller
+    public class SeriesController : BaseController
     {
+        private SeriesRepository _seriesRepository = null;
+
+        public SeriesController()
+        {
+            _seriesRepository = new SeriesRepository(Context);
+        }
+
         public ActionResult Index()
         {
             // TODO Get the series list.
