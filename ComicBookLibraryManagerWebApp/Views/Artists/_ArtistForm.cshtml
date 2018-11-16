@@ -12,7 +12,8 @@
     </div>
 
     <div class="col-md-6">
-
+        @Html.LabelFor(m => m.Bio, new { @class = "control-label"})
+        @Html.TextAreaFor(m => m.Bio, new { @class = "form-control" })
     </div>
 
 </div>

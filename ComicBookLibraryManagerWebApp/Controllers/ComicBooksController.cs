@@ -19,12 +19,14 @@ namespace ComicBookLibraryManagerWebApp.Controllers
     {
         private ComicBooksRepository _comicBooksRepository = null;
         private readonly SeriesRepository _seriesRepository = null;
+        private readonly ArtistsRepository _artistsRepository = null;
 
         public ComicBooksController()
         {
             // passing in BaseController's Context property
             _comicBooksRepository = new ComicBooksRepository(Context);
             _seriesRepository = new SeriesRepository(Context);
+            _artistsRepository = new ArtistsRepository(Context);
         }
 
         public ActionResult Index()
@@ -61,7 +63,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             var viewModel = new ComicBooksAddViewModel();
 
             // TODO Pass the Context class to the view model "Init" method.
-            viewModel.Init(Repository, _seriesRepository);
+            viewModel.Init(Repository, _seriesRepository, _artistsRepository);
 
             return View(viewModel);
         }
@@ -84,7 +86,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             }
 
             // TODO Pass the Context class to the view model "Init" method.
-            viewModel.Init(Repository, _seriesRepository);
+            viewModel.Init(Repository, _seriesRepository, _artistsRepository);
 
             return View(viewModel);
         }
@@ -106,7 +108,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
             {
                 ComicBook = comicBook
             };
-            viewModel.Init(Repository, _seriesRepository);
+            viewModel.Init(Repository, _seriesRepository, _artistsRepository);
 
             return View(viewModel);
         }
@@ -127,7 +129,7 @@ namespace ComicBookLibraryManagerWebApp.Controllers
                 return RedirectToAction("Detail", new { id = comicBook.Id });
             }
 
-            viewModel.Init(Repository, _seriesRepository);
+            viewModel.Init(Repository, _seriesRepository, _artistsRepository);
 
             return View(viewModel);
         }

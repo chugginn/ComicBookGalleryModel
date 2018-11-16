@@ -21,7 +21,8 @@ namespace ComicBookLibraryManagerWebApp.ViewModels
         /// <summary>
         /// Initializes the view model.
         /// </summary>
-        public virtual void Init(Repository repository, SeriesRepository seriesRepository)
+        public virtual void Init(Repository repository, 
+            SeriesRepository seriesRepository, ArtistsRepository artistsRepository)
         {
             // create a select dropdown variable which gets the context's
             // Series list, ordered by title
